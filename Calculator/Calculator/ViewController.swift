@@ -30,33 +30,34 @@ class ViewController: UIViewController {
         }
         
         switch operation{
-        case "×":
-            if operandStack.count >= 2 {
-                displayValue = operandStack.removeLast() * operandStack.removeLast()
-            }
-        case "÷":
-            displayValue = operandStack.removeLast() * operandStack.removeLast()
-        case "+":
-            displayValue = operandStack.removeLast() + operandStack.removeLast()
-        case "−":
-            displayValue = operandStack.removeLast() * operandStack.removeLast()
+        case "×": performOperation(multiply)
+//        case "÷":performOperation(divide)
+//        case "+":performOperation(add)
+//        case "−":performOperation(subtract)
         default:break
         
         }
-        func performOperation (){
+    }
         
-        
+        func performOperation(operation: (Double,Double) -> Double){
+            if operandStack.count >= 2 {
+                displayValue = operation(operandStack.removeLast(),operandStack.removeLast())
+                enter()
+            }
         }
         
-    }
+        func multiply(op1: Double , op2: Double) -> Double{
+            return op1 * op2
+        }
     
+
     var operandStack = Array<Double>()
-    @IBAction func enter() {
+    @IBAction func enter(){
         userInTheMiddleOfTypingANumber = false
         operandStack.append(displayValue)
         println("operandStack = \(operandStack)")
     }
-    
+
     var displayValue:Double{
     
         get{
@@ -69,5 +70,3 @@ class ViewController: UIViewController {
     }
     
 }
-
-
